@@ -46,3 +46,17 @@ def page_photo() -> tuple[np.ndarray, np.ndarray]:
     cv2.fillPoly(img, [corners], (235, 235, 235))
     cv2.putText(img, "HELLO", (220, 400), cv2.FONT_HERSHEY_SIMPLEX, 2, (20, 20, 20), 4)
     return img, corners.astype(np.float64)
+
+
+@pytest.fixture
+def fake_grbl():  # type: ignore[no-untyped-def]
+    """A fresh FakeGrbl emulator (acts as the serial port)."""
+    from plotter.fake_grbl import FakeGrbl
+
+    return FakeGrbl()
+
+
+@pytest.fixture
+def no_sleep() -> object:
+    """A sleep() replacement that returns immediately."""
+    return lambda _s: None

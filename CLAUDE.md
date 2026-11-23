@@ -133,6 +133,9 @@ ai-pen-plotter/
 │   ├── preview.py
 │   ├── grbl.py
 │   ├── grbl_codes.py            # error:N and ALARM:N → human messages
+│   ├── fake_grbl.py             # FakeGrbl emulator (tests + `send --dry-run`)
+│   ├── images.py                # unicode-safe image load/save
+│   ├── errors.py
 │   ├── pipeline.py
 │   └── cli.py
 ├── app/streamlit_app.py
@@ -279,7 +282,7 @@ ai:
 - Real-time commands (not counted in the buffer): `status()` sends `?` and parses `<Idle|MPos:…|…>`; `hold()` = `!`, `resume()` = `~`, `reset()` = `0x18`.
 - Also `home()` (`$H`), `unlock()` (`$X`), `settings()` (`$$`, read-only), `jog(dx, dy, feed)` (`$J=G91 …`), `pen(up: bool)`.
 - `ALARM:N` → stop streaming, raise `GrblAlarm` with an explanation and the fix (usually: home or unlock).
-- `FakeGrbl` (also used by tests) emulates the banner, `ok` responses, status reports, buffer limits and injected errors.
+- `FakeGrbl` (in `plotter/fake_grbl.py`; used by tests and by `send --dry-run`) emulates the banner, `ok` responses, status reports, buffer limits and injected errors.
 - Auto-detect the port with `serial.tools.list_ports` (Arduino VID 0x2341, CH340 VID 0x1A86).
 
 ### 7.10 `pipeline.py` and `cli.py`
@@ -328,7 +331,7 @@ Upload or capture → optional flatten → choose DRAW/WRITE → tweak the main 
 - Python ≥ 3.10. `from __future__ import annotations`. Type hints everywhere; `mypy --strict` must pass on `plotter/`.
 - `ruff` for lint + format (line length 100). Docstrings (Google style) on every public function.
 - Use `logging` (module-level `logger = logging.getLogger(__name__)`), never `print` in library code; `rich` only in the CLI/GUI.
-- Custom exceptions in `plotter/errors.py`: `ConfigError`, `CameraError`, `OcrError`, `OutOfBoundsError`, `GrblError`, `GrblAlarm`.
+- Custom exceptions in `plotter/errors.py` (all derive from `PlotterError`): `ConfigError`, `CameraError`, `OcrError`, `GcodeError` (unsafe/malformed G-code) → `OutOfBoundsError`, `GrblError` → `GrblAlarm`.
 - No global mutable state. Pass `Config` explicitly.
 - Cross-platform paths via `pathlib`. Never hardcode a serial port or a camera index outside the config.
 
