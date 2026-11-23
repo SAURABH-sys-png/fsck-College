@@ -197,7 +197,7 @@ def test_timeout(cfg: Config, no_sleep: Sleep) -> None:
 def test_unexpected_reset_detected(cfg: Config, fake_grbl: FakeGrbl, no_sleep: Sleep) -> None:
     g = _connected(cfg, fake_grbl, no_sleep)
     fake_grbl._emit("Grbl 1.1h ['$' for help]")
-    with pytest.raises(GrblError, match="reset unexpectedly"):
+    with pytest.raises(GrblError, match="was reset"):
         g.command("G0 X1 Y1")
 
 

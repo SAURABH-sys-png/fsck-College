@@ -6,3 +6,4 @@ mypy>=1.11
 pre-commit>=3.7
 types-PyYAML
 types-pyserial
+streamlit>=1.50

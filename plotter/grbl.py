@@ -13,6 +13,7 @@ from __future__ import annotations
 
 import logging
 import re
+import threading
 import time
 from collections import deque
 from collections.abc import Callable, Iterable
@@ -149,6 +150,8 @@ class Grbl:
         self.version = ""
         self.last_status: GrblStatus | None = None
         self.messages: list[str] = []
+        self._lock = threading.Lock()  # real-time bytes may come from another thread
+        self._reset_seen = False
 
     # ------------------------------------------------------------------ lifecycle
     def __enter__(self) -> Grbl:
@@ -227,6 +230,10 @@ class Grbl:
         return self._ser
 
     # ------------------------------------------------------------------ low level
+    def _write(self, data: bytes) -> None:
+        with self._lock:
+            self._port.write(data)
+
     def _readline(self, timeout: float) -> str:
         deadline = self._clock() + timeout
         while True:
@@ -253,7 +260,8 @@ class Grbl:
             if line.startswith("<"):
                 self.last_status = parse_status(line)
             elif _BANNER_RE.search(line):
-                raise GrblError("GRBL reset unexpectedly (banner received); position may be lost")
+                self._reset_seen = True
+                raise GrblError("GRBL was reset (banner received); position may be lost")
             else:
                 if line.startswith("[MSG:"):
                     logger.info("GRBL %s", line)
@@ -281,7 +289,7 @@ class Grbl:
                 "refusing to write GRBL settings automatically; apply them yourself from "
                 "firmware/grbl_settings.txt (CLAUDE.md §11)"
             )
-        self._port.write((text + "\n").encode("ascii"))
+        self._write((text + "\n").encode("ascii"))
         resp, info = self._response(timeout or self.cfg.machine.response_timeout_s)
         if resp.startswith("error:"):
             code = int(resp.split(":", 1)[1])
@@ -324,7 +332,7 @@ class Grbl:
                     progress_cb(i + 1, total)
             return StreamResult(total, total, 0, 0.0, True)
 
-        port = self._port
+        _ = self._port  # raises if not connected
         timeout = self.cfg.machine.response_timeout_s
         in_flight: deque[tuple[int, int]] = deque()  # (job index, bytes)
         used = peak = acked = 0
@@ -348,7 +356,7 @@ class Grbl:
                 data = (t + "\n").encode("ascii")
                 while in_flight and used + len(data) > MAX_IN_FLIGHT:
                     ack()
-                port.write(data)
+                self._write(data)
                 in_flight.append((i, len(data)))
                 used += len(data)
                 peak = max(peak, used)
@@ -363,7 +371,14 @@ class Grbl:
         return StreamResult(total, acked, peak, self._clock() - start, False)
 
     def _stop_after_error(self, in_flight: deque[tuple[int, int]], timeout: float) -> None:
-        """After error:N: stop sending, drain what GRBL already has, then lift the pen."""
+        """After error:N: stop sending, drain what GRBL already has, then lift the pen.
+
+        After a reset GRBL has flushed its buffers (and lifted nothing): there is nothing to
+        drain, and G-code may be locked until homing, so we stop here.
+        """
+        if self._reset_seen:
+            logger.warning("GRBL was reset; in-flight lines were discarded")
+            return
         try:
             while in_flight:
                 self._response(timeout)
@@ -376,7 +391,7 @@ class Grbl:
     # ------------------------------------------------------------------ real-time
     def status(self, timeout: float = 2.0) -> GrblStatus:
         """Send ``?`` and return the parsed status report."""
-        self._port.write(b"?")
+        self._write(b"?")
         deadline = self._clock() + timeout
         while self._clock() < deadline:
             line = self._readline(timeout)
@@ -387,15 +402,15 @@ class Grbl:
 
     def hold(self) -> None:
         """Feed hold (``!``): decelerate and pause."""
-        self._port.write(b"!")
+        self._write(b"!")
 
     def resume(self) -> None:
         """Cycle start (``~``): resume after a hold."""
-        self._port.write(b"~")
+        self._write(b"~")
 
     def reset(self) -> None:
         """Soft reset (``0x18``)."""
-        self._port.write(b"\x18")
+        self._write(b"\x18")
 
     def abort(self) -> None:
         """Stop now: feed hold, let the machine decelerate, then soft reset."""
