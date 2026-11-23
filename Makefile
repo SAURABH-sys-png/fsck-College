@@ -28,8 +28,9 @@ typecheck:
 
 check: lint typecheck test
 
-samples:            ## regenerate the synthetic sample inputs
+samples:            ## regenerate the synthetic sample inputs + calibration G-code
 	$(PY) scripts/make_samples.py
+	$(PY) scripts/make_calibration.py
 
 preview-sample:     ## render samples → output/*.gcode + output/*.png
 	plotter draw samples/lineart.png --mode lineart --out output/lineart.gcode --preview output/lineart_preview.png
