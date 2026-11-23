@@ -1,6 +1,6 @@
 # ai-pen-plotter — common tasks. Activate your venv first (see README).
 PY ?= python
-CORE := plotter/paths.py,plotter/gcode.py,plotter/text_layout.py,plotter/grbl.py,plotter/config.py
+CORE := */plotter/paths.py,*/plotter/gcode.py,*/plotter/text_layout.py,*/plotter/grbl.py,*/plotter/config.py
 
 .PHONY: install dev test cov-core lint format typecheck check preview-sample samples gui clean
 

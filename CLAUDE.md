@@ -152,6 +152,8 @@ ai-pen-plotter/
 │   ├── TROUBLESHOOTING.md
 │   └── ASSUMPTIONS.md
 ├── samples/                     # lineart.png, photo.jpg, page_photo.jpg, sample_text.txt (generate synthetically if needed)
+│                                #   + calibration_square.gcode, origin_mark.gcode
+├── scripts/                     # make_samples.py, make_calibration.py, requirements-dev.in
 ├── output/                      # generated .gcode / .png (git-ignored)
 └── tests/
     ├── conftest.py              # fixtures: default config, synthetic images, FakeGrbl serial
@@ -164,6 +166,8 @@ ai-pen-plotter/
     ├── test_text_layout.py
     ├── test_ocr.py              # AI client mocked; fallback path tested
     ├── test_grbl.py
+    ├── test_camera.py · test_preview.py · test_pipeline.py
+    ├── test_gui.py              # Streamlit AppTest (skipped if streamlit is missing)
     └── test_cli.py              # Typer CliRunner, --dry-run only
 ```
 

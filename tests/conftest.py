@@ -2,6 +2,7 @@
 
 from __future__ import annotations
 
+import os
 from pathlib import Path
 
 import cv2
@@ -11,6 +12,10 @@ import pytest
 from plotter.config import Config, load_config
 
 REPO_ROOT = Path(__file__).resolve().parents[1]
+
+# Wide, plain console output so CLI assertions never depend on line wrapping.
+os.environ["COLUMNS"] = "200"
+os.environ.setdefault("NO_COLOR", "1")
 
 
 @pytest.fixture(scope="session")

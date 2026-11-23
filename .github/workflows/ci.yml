@@ -1,0 +1,65 @@
+name: CI
+
+on:
+  push:
+    branches: [main]
+  pull_request:
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
+jobs:
+  test:
+    name: ${{ matrix.os }} · py${{ matrix.python }}
+    runs-on: ${{ matrix.os }}
+    strategy:
+      fail-fast: false
+      matrix:
+        os: [ubuntu-latest, windows-latest]
+        python: ["3.10", "3.11", "3.12"]
+    steps:
+      - uses: actions/checkout@v4
+
+      - uses: actions/setup-python@v5
+        with:
+          python-version: ${{ matrix.python }}
+          cache: pip
+          cache-dependency-path: requirements-dev.txt
+
+      - name: Install
+        run: |
+          python -m pip install --upgrade pip
+          python -m pip install -r requirements-dev.txt -e .
+
+      - name: Lint (ruff)
+        run: |
+          ruff check .
+          ruff format --check .
+
+      - name: Type-check (mypy --strict)
+        run: mypy plotter
+
+      - name: Test (pytest + coverage) — no hardware, camera or network
+        run: python -m pytest --cov=plotter --cov-report=term-missing --cov-report=xml
+
+      - name: Coverage gate ≥ 85% on core modules
+        run: >
+          python -m coverage report --fail-under=85
+          --include="*/plotter/paths.py,*/plotter/gcode.py,*/plotter/text_layout.py,*/plotter/grbl.py,*/plotter/config.py"
+
+      - name: Render sample previews
+        if: matrix.os == 'ubuntu-latest' && matrix.python == '3.12'
+        run: |
+          plotter draw samples/lineart.png --mode lineart --out output/lineart.gcode --preview output/lineart_preview.png
+          plotter write samples/sample_text.txt --out output/text.gcode --preview output/text_preview.png
+          plotter send output/lineart.gcode --dry-run
+
+      - uses: actions/upload-artifact@v4
+        if: matrix.os == 'ubuntu-latest' && matrix.python == '3.12'
+        with:
+          name: previews
+          path: output/*.png
