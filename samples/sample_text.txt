@@ -1,0 +1,13 @@
+Dear plotter,
+
+This page was typed on a laptop and written by a pen held by two stepper motors and a
+tiny servo. Every letter is a single stroke from the Hershey fonts, so the pen draws each
+line exactly once - no outlines, no fills.
+
+The quick brown fox jumps over the lazy dog. 0123456789
+Pack my box with five dozen liquor jugs!
+
+  - DRAW mode copies line art, diagrams and photos (by hatching).
+  - WRITE mode reads a page with AI vision OCR and copies the text.
+
+Calibrate first: draw a 100 x 100 mm square, measure it, and adjust $100 / $101.
