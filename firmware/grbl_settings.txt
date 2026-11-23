@@ -1,0 +1,53 @@
+; ai-pen-plotter — starting GRBL 1.1 settings.
+; Apply them YOURSELF, one line at a time, in a serial terminal at 115200 baud
+; (Arduino Serial Monitor with "Both NL & CR", CNCjs, UGS…). The plotter software never
+; writes $ settings to the machine. GRBL 1.1 ignores the "; …" comments, so each whole line
+; can be pasted as-is. Each line should answer "ok". Check the result with $$.
+;
+; Steps/mm = (200 steps × 16 microsteps) / (20 teeth × 2 mm pitch) = 80.
+; Recompute $100/$101 if you change pulleys, belt or microstepping, then fine-tune with the
+; 100 mm square test in docs/CALIBRATION.md.
+
+$0=10        ; step pulse length, µs (A4988 needs ≥1 µs; 10 is safe)
+$1=255       ; step idle delay: 255 = keep motors energised so position is never lost
+$2=0         ; step pulse invert mask
+$3=0         ; direction invert mask (bit0 = X, bit1 = Y): set 1, 2 or 3 if an axis runs backwards
+$4=0         ; step-enable invert (A4988 enable is active LOW → 0)
+$5=0         ; limit pin invert: 0 for normally-open switches wired between the pin and GND
+$6=0         ; probe pin invert (unused)
+
+$10=1        ; status report shows machine position (MPos)
+$11=0.010    ; junction deviation, mm (cornering speed)
+$12=0.002    ; arc tolerance, mm (no arcs are generated, harmless)
+$13=0        ; report in mm
+
+$20=1        ; soft limits ON — only works after a successful homing ($22=1, $H)
+$21=1        ; hard limits ON — set 0 if noisy switch wiring causes false ALARM:1
+$22=1        ; homing cycle enabled
+$23=3        ; homing direction invert mask (bit0 = X, bit1 = Y): 3 = home X and Y toward
+             ;   their minimum (front-left) switches. If an axis moves AWAY from its switch
+             ;   during $H, press reset and toggle that axis' bit (X: 1, Y: 2).
+$24=100      ; homing locate feed, mm/min (slow second touch)
+$25=1000     ; homing seek feed, mm/min
+$26=250      ; homing switch debounce, ms
+$27=2.000    ; homing pull-off, mm (carriage backs off the switch after homing)
+
+$30=255      ; max "spindle speed" = S value mapped to the top of the servo pulse range
+$31=0        ; min "spindle speed"
+$32=0        ; laser mode OFF — required: laser mode would drop the pen state on G0 moves
+
+$100=80      ; X steps/mm
+$101=80      ; Y steps/mm
+$102=80      ; Z steps/mm (Z is unused)
+
+$110=5000    ; X max rate, mm/min (G0 travel speed)
+$111=5000    ; Y max rate, mm/min
+$112=500     ; Z max rate, mm/min
+
+$120=500     ; X acceleration, mm/s²
+$121=500     ; Y acceleration, mm/s²
+$122=100     ; Z acceleration, mm/s²
+
+$130=230     ; X max travel, mm (soft-limit size; measure your machine)
+$131=320     ; Y max travel, mm
+$132=10      ; Z max travel, mm
