@@ -1,0 +1,103 @@
+[build-system]
+requires = ["setuptools>=69", "wheel"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "ai-pen-plotter"
+dynamic = ["version"]
+description = "A4 handwriting and drawing machine: image/photo -> pen strokes -> G-code -> GRBL XY plotter."
+readme = "README.md"
+requires-python = ">=3.10"
+authors = [{ name = "realincor" }]
+keywords = ["pen plotter", "grbl", "g-code", "opencv", "ocr", "hershey"]
+classifiers = [
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Operating System :: OS Independent",
+    "Topic :: Scientific/Engineering :: Image Processing",
+]
+dependencies = [
+    "numpy>=1.26",
+    "scipy>=1.11",
+    "opencv-python-headless>=4.9",
+    "scikit-image>=0.22",
+    "matplotlib>=3.8",
+    "PyYAML>=6.0",
+    "typer>=0.12",
+    "rich>=13.7",
+    "pyserial>=3.5",
+    "anthropic>=0.40",
+    "pytesseract>=0.3.10",
+    "Hershey-Fonts>=2.1",
+    "python-dotenv>=1.0",
+]
+
+[project.optional-dependencies]
+gui = ["streamlit>=1.35"]
+
+[project.scripts]
+plotter = "plotter.cli:app"
+
+[tool.setuptools.dynamic]
+version = { attr = "plotter.__version__" }
+
+[tool.setuptools.packages.find]
+include = ["plotter*"]
+
+[tool.setuptools.package-data]
+plotter = ["py.typed"]
+
+# ----------------------------------------------------------------------------- ruff
+[tool.ruff]
+line-length = 100
+target-version = "py310"
+extend-exclude = [".venv", "output"]
+
+[tool.ruff.lint]
+select = ["E", "W", "F", "I", "B", "UP", "SIM", "C4", "N", "D", "RUF", "PT", "NPY"]
+ignore = [
+    "D105",   # magic methods
+    "D107",   # __init__ (documented on the class)
+    "RUF001", # ×, ≤, ° etc. are intentional in strings/docstrings
+    "RUF002",
+    "RUF003",
+]
+
+[tool.ruff.lint.per-file-ignores]
+"tests/*" = ["D"]
+"scripts/*" = ["D"]
+"app/*" = ["D"]
+
+[tool.ruff.lint.pydocstyle]
+convention = "google"
+
+[tool.ruff.format]
+quote-style = "double"
+
+# ----------------------------------------------------------------------------- mypy
+[tool.mypy]
+python_version = "3.10"
+strict = true
+warn_unreachable = true
+files = ["plotter"]
+
+[[tool.mypy.overrides]]
+module = ["pytesseract.*", "HersheyFonts.*", "serial.*", "scipy.*", "skimage.*"]
+ignore_missing_imports = true
+
+# ----------------------------------------------------------------------------- pytest
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+addopts = "-q"
+filterwarnings = ["error::DeprecationWarning:plotter.*"]
+
+[tool.coverage.run]
+source = ["plotter"]
+branch = true
+
+[tool.coverage.report]
+show_missing = true
+skip_covered = false
+exclude_lines = ["pragma: no cover", "if TYPE_CHECKING:", "raise NotImplementedError"]

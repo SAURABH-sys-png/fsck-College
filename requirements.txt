@@ -1,0 +1,204 @@
+# Pinned runtime dependencies (mirrors pyproject.toml). Regenerate with:
+#   uv pip compile pyproject.toml --universal --python-version 3.10 --no-header -o requirements.txt
+annotated-doc==0.0.6 ; python_full_version < '3.11'
+    # via typer
+annotated-doc==0.0.7 ; python_full_version >= '3.11'
+    # via typer
+annotated-types==0.8.0
+    # via pydantic
+anthropic==2.13.0
+    # via ai-pen-plotter (pyproject.toml)
+anyio==4.16.0
+    # via
+    #   anthropic
+    #   httpx2
+colorama==0.4.6 ; sys_platform == 'win32'
+    # via typer
+contourpy==1.3.2 ; python_full_version < '3.11'
+    # via matplotlib
+contourpy==1.3.3 ; python_full_version == '3.11.*'
+    # via matplotlib
+contourpy==1.4.0 ; python_full_version >= '3.12'
+    # via matplotlib
+cycler==0.12.1
+    # via matplotlib
+docstring-parser==0.18.0
+    # via anthropic
+exceptiongroup==1.3.2 ; python_full_version < '3.11'
+    # via anyio
+fonttools==4.65.0 ; python_full_version < '3.11'
+    # via matplotlib
+fonttools==4.68.0 ; python_full_version >= '3.11'
+    # via matplotlib
+h11==0.16.0 ; sys_platform != 'emscripten'
+    # via httpcore2
+hershey-fonts==2.1.0
+    # via ai-pen-plotter (pyproject.toml)
+httpcore2==2.14.0 ; python_full_version < '3.11' and sys_platform != 'emscripten'
+    # via httpx2
+httpcore2==2.16.2 ; python_full_version >= '3.11' and sys_platform != 'emscripten'
+    # via httpx2
+httpx2==2.14.0 ; python_full_version < '3.11'
+    # via anthropic
+httpx2==2.16.2 ; python_full_version >= '3.11'
+    # via anthropic
+httpx2-jsfetch==1.0 ; python_full_version >= '3.12' and sys_platform == 'emscripten'
+    # via httpx2
+idna==3.20
+    # via
+    #   anyio
+    #   httpx2
+imageio==2.38.0 ; python_full_version < '3.11'
+    # via scikit-image
+imageio==2.38.2 ; python_full_version >= '3.11'
+    # via scikit-image
+jiter==0.18.0 ; python_full_version < '3.11'
+    # via anthropic
+jiter==0.19.0 ; python_full_version >= '3.11'
+    # via anthropic
+kiwisolver==1.5.1
+    # via matplotlib
+lazy-loader==0.6
+    # via scikit-image
+markdown-it-py==4.3.0
+    # via rich
+matplotlib==3.10.9 ; python_full_version < '3.11'
+    # via ai-pen-plotter (pyproject.toml)
+matplotlib==3.11.2 ; python_full_version >= '3.11'
+    # via ai-pen-plotter (pyproject.toml)
+mdurl==0.1.2
+    # via markdown-it-py
+networkx==3.4.2 ; python_full_version < '3.11'
+    # via scikit-image
+networkx==3.6.1 ; python_full_version == '3.11.*'
+    # via scikit-image
+networkx==3.7 ; python_full_version >= '3.12'
+    # via scikit-image
+numpy==2.2.6 ; python_full_version < '3.11'
+    # via
+    #   ai-pen-plotter (pyproject.toml)
+    #   contourpy
+    #   imageio
+    #   matplotlib
+    #   opencv-python-headless
+    #   scikit-image
+    #   scipy
+    #   tifffile
+numpy==2.4.6 ; python_full_version == '3.11.*'
+    # via
+    #   ai-pen-plotter (pyproject.toml)
+    #   contourpy
+    #   imageio
+    #   matplotlib
+    #   opencv-python-headless
+    #   scikit-image
+    #   scipy
+    #   tifffile
+numpy==2.5.5 ; python_full_version >= '3.12'
+    # via
+    #   ai-pen-plotter (pyproject.toml)
+    #   contourpy
+    #   imageio
+    #   matplotlib
+    #   opencv-python-headless
+    #   scikit-image
+    #   scipy
+    #   tifffile
+opencv-python-headless==5.1.0.95
+    # via ai-pen-plotter (pyproject.toml)
+opentelemetry-api==1.45.2
+    # via anthropic
+packaging==26.3
+    # via
+    #   lazy-loader
+    #   matplotlib
+    #   pytesseract
+    #   scikit-image
+pillow==12.3.0 ; python_full_version < '3.11'
+    # via
+    #   imageio
+    #   matplotlib
+    #   pytesseract
+    #   scikit-image
+pillow==13.0.0 ; python_full_version >= '3.11'
+    # via
+    #   imageio
+    #   matplotlib
+    #   pytesseract
+    #   scikit-image
+pydantic==2.14.4
+    # via
+    #   anthropic
+    #   typer
+pydantic-core==2.50.5
+    # via pydantic
+pygments==2.21.0
+    # via rich
+pyparsing==3.3.3
+    # via matplotlib
+pyserial==3.5
+    # via ai-pen-plotter (pyproject.toml)
+pytesseract==0.3.13
+    # via ai-pen-plotter (pyproject.toml)
+python-dateutil==3.0.0 ; python_full_version < '3.11'
+    # via matplotlib
+python-dateutil==4.0.0 ; python_full_version >= '3.11'
+    # via matplotlib
+python-dotenv==1.2.4
+    # via ai-pen-plotter (pyproject.toml)
+pyyaml==6.0.4
+    # via ai-pen-plotter (pyproject.toml)
+rich==15.0.0
+    # via
+    #   ai-pen-plotter (pyproject.toml)
+    #   typer
+scikit-image==0.25.2 ; python_full_version < '3.11'
+    # via ai-pen-plotter (pyproject.toml)
+scikit-image==0.26.0 ; python_full_version >= '3.11'
+    # via ai-pen-plotter (pyproject.toml)
+scipy==1.15.3 ; python_full_version < '3.11'
+    # via
+    #   ai-pen-plotter (pyproject.toml)
+    #   scikit-image
+scipy==1.17.1 ; python_full_version == '3.11.*'
+    # via
+    #   ai-pen-plotter (pyproject.toml)
+    #   scikit-image
+scipy==1.18.1 ; python_full_version >= '3.12'
+    # via
+    #   ai-pen-plotter (pyproject.toml)
+    #   scikit-image
+shellingham==1.5.4
+    # via typer
+six==1.17.0 ; python_full_version < '3.11'
+    # via python-dateutil
+sniffio==1.3.1
+    # via anthropic
+tifffile==2025.5.10 ; python_full_version < '3.11'
+    # via scikit-image
+tifffile==2026.3.3 ; python_full_version == '3.11.*'
+    # via scikit-image
+tifffile==2026.11.16 ; python_full_version >= '3.12'
+    # via scikit-image
+truststore==0.10.5 ; sys_platform != 'emscripten'
+    # via
+    #   httpcore2
+    #   httpx2
+typer==0.29.1 ; python_full_version < '3.11'
+    # via ai-pen-plotter (pyproject.toml)
+typer==0.29.2 ; python_full_version >= '3.11'
+    # via ai-pen-plotter (pyproject.toml)
+typing-extensions==4.16.0
+    # via
+    #   anthropic
+    #   anyio
+    #   exceptiongroup
+    #   httpx2
+    #   opentelemetry-api
+    #   pydantic
+    #   pydantic-core
+    #   typing-inspection
+typing-inspection==0.4.5
+    # via pydantic
+tzdata==2026.6
+    # via python-dateutil

@@ -1,0 +1,58 @@
+# ai-pen-plotter machine configuration.
+# All tunables live here. Units: millimetres, mm/min, seconds.
+# Coordinate frames are described in CLAUDE.md section 3.
+
+machine:
+  serial_port: auto            # "auto" = detect Arduino (VID/PID or description), else e.g. COM3, /dev/ttyACM0
+  baud: 115200
+  bed_size_mm: [230, 320]      # usable travel X, Y (machine frame)
+  page_size_mm: [210, 297]     # A4 portrait
+  page_origin_mm: [10, 10]     # machine coords of the sheet's bottom-left corner
+  margins_mm: {left: 20, right: 10, top: 15, bottom: 15}
+  connect_wait_s: 2.0          # wait after waking GRBL (the Uno resets when the port opens)
+  response_timeout_s: 60       # max wait for an 'ok' (G4 dwells wait for the planner to drain)
+
+motion:
+  draw_feed_mm_min: 3000
+  travel_feed_mm_min: 5000     # G0 runs at GRBL $110/$111; keep this equal for time estimates
+  accel_mm_s2: 500             # mirror of GRBL $120/$121, used only for time estimates
+  coord_decimals: 2
+
+pen:
+  up_cmd: "M3 S30"             # depends on servo firmware; calibrate with servo_test.ino
+  down_cmd: "M3 S90"
+  settle_s: 0.15               # emitted as G4 P0.15 after every pen move
+
+paths:
+  min_segment_mm: 0.2          # points closer than this are merged; shorter paths dropped
+  simplify_tolerance_mm: 0.08  # Ramer–Douglas–Peucker tolerance
+  join_tolerance_mm: 0.2       # merge paths whose endpoints are this close
+  optimize: greedy             # greedy | greedy+2opt | none
+  two_opt_max_paths: 1500      # skip the O(n²) 2-opt pass above this many paths
+
+camera:
+  source: 0                    # int index or URL, e.g. "http://192.168.1.5:4747/video"
+  warp_px_per_mm: 10
+
+vision:
+  mode: lineart                # lineart | outline | hatch
+  blur_ksize: 3
+  adaptive_block: 31
+  adaptive_c: 10
+  min_contour_px: 15
+  hatch: {levels: 4, spacing_mm: 1.2, angles_deg: [45, -45, 0, 90]}
+
+text:
+  font: futural                # Hershey single-stroke
+  size_mm: 5.0                 # cap height
+  line_spacing_mm: 8.0         # ruled-notebook spacing
+  first_line_y_mm: 25.0        # page frame
+  jitter: {enabled: true, baseline_mm: 0.3, scale_pct: 3, rotate_deg: 1.5, seed: 42}
+
+ai:
+  enabled: true
+  model_env: AI_MODEL          # model name is read from this env var — never hardcode it
+  key_env: ANTHROPIC_API_KEY
+  max_retries: 3               # SDK retries 429/5xx/connection errors with exponential backoff
+  timeout_s: 60
+  max_image_px: 2000           # long side of the image sent to the vision model

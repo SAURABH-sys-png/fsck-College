@@ -1,0 +1,374 @@
+# Pinned dev dependencies. Regenerate with:
+#   uv pip compile scripts/requirements-dev.in --universal --python-version 3.10 --no-header -o requirements-dev.txt
+annotated-doc==0.0.6 ; python_full_version < '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   typer
+annotated-doc==0.0.7 ; python_full_version >= '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   typer
+annotated-types==0.8.0
+    # via
+    #   -r scripts/../requirements.txt
+    #   pydantic
+anthropic==2.13.0
+    # via -r scripts/../requirements.txt
+anyio==4.16.0
+    # via
+    #   -r scripts/../requirements.txt
+    #   anthropic
+    #   httpx2
+ast-serialize==0.13.1
+    # via mypy
+cfgv==3.5.0
+    # via pre-commit
+colorama==0.4.6 ; sys_platform == 'win32'
+    # via
+    #   -r scripts/../requirements.txt
+    #   pytest
+    #   typer
+contourpy==1.3.2 ; python_full_version < '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   matplotlib
+contourpy==1.3.3 ; python_full_version == '3.11.*'
+    # via
+    #   -r scripts/../requirements.txt
+    #   matplotlib
+contourpy==1.4.0 ; python_full_version >= '3.12'
+    # via
+    #   -r scripts/../requirements.txt
+    #   matplotlib
+coverage==7.16.2 ; python_full_version < '3.11'
+    # via pytest-cov
+coverage==7.17.5 ; python_full_version >= '3.11'
+    # via pytest-cov
+cycler==0.12.1
+    # via
+    #   -r scripts/../requirements.txt
+    #   matplotlib
+distlib==0.4.4
+    # via virtualenv
+docstring-parser==0.18.0
+    # via
+    #   -r scripts/../requirements.txt
+    #   anthropic
+exceptiongroup==1.3.2 ; python_full_version < '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   anyio
+    #   pytest
+filelock==4.1.0 ; python_full_version < '3.11'
+    # via
+    #   python-discovery
+    #   virtualenv
+filelock==4.3.1 ; python_full_version >= '3.11'
+    # via
+    #   python-discovery
+    #   virtualenv
+fonttools==4.65.0 ; python_full_version < '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   matplotlib
+fonttools==4.68.0 ; python_full_version >= '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   matplotlib
+h11==0.16.0 ; sys_platform != 'emscripten'
+    # via
+    #   -r scripts/../requirements.txt
+    #   httpcore2
+hershey-fonts==2.1.0
+    # via -r scripts/../requirements.txt
+httpcore2==2.14.0 ; python_full_version < '3.11' and sys_platform != 'emscripten'
+    # via
+    #   -r scripts/../requirements.txt
+    #   httpx2
+httpcore2==2.16.2 ; python_full_version >= '3.11' and sys_platform != 'emscripten'
+    # via
+    #   -r scripts/../requirements.txt
+    #   httpx2
+httpx2==2.14.0 ; python_full_version < '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   anthropic
+httpx2==2.16.2 ; python_full_version >= '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   anthropic
+httpx2-jsfetch==1.0 ; python_full_version >= '3.12' and sys_platform == 'emscripten'
+    # via
+    #   -r scripts/../requirements.txt
+    #   httpx2
+identify==2.6.20
+    # via pre-commit
+idna==3.20
+    # via
+    #   -r scripts/../requirements.txt
+    #   anyio
+    #   httpx2
+imageio==2.38.0 ; python_full_version < '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   scikit-image
+imageio==2.38.2 ; python_full_version >= '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   scikit-image
+iniconfig==2.3.1
+    # via pytest
+jiter==0.18.0 ; python_full_version < '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   anthropic
+jiter==0.19.0 ; python_full_version >= '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   anthropic
+kiwisolver==1.5.1
+    # via
+    #   -r scripts/../requirements.txt
+    #   matplotlib
+lazy-loader==0.6
+    # via
+    #   -r scripts/../requirements.txt
+    #   scikit-image
+librt==0.17.0 ; platform_python_implementation != 'PyPy'
+    # via mypy
+markdown-it-py==4.3.0
+    # via
+    #   -r scripts/../requirements.txt
+    #   rich
+matplotlib==3.10.9 ; python_full_version < '3.11'
+    # via -r scripts/../requirements.txt
+matplotlib==3.11.2 ; python_full_version >= '3.11'
+    # via -r scripts/../requirements.txt
+mdurl==0.1.2
+    # via
+    #   -r scripts/../requirements.txt
+    #   markdown-it-py
+mypy==2.4.1
+    # via -r scripts/requirements-dev.in
+mypy-extensions==1.2.0
+    # via
+    #   librt
+    #   mypy
+networkx==3.4.2 ; python_full_version < '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   scikit-image
+networkx==3.6.1 ; python_full_version == '3.11.*'
+    # via
+    #   -r scripts/../requirements.txt
+    #   scikit-image
+networkx==3.7 ; python_full_version >= '3.12'
+    # via
+    #   -r scripts/../requirements.txt
+    #   scikit-image
+nodeenv==1.12.0
+    # via pre-commit
+numpy==2.2.6 ; python_full_version < '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   contourpy
+    #   imageio
+    #   matplotlib
+    #   opencv-python-headless
+    #   scikit-image
+    #   scipy
+    #   tifffile
+numpy==2.4.6 ; python_full_version == '3.11.*'
+    # via
+    #   -r scripts/../requirements.txt
+    #   contourpy
+    #   imageio
+    #   matplotlib
+    #   opencv-python-headless
+    #   scikit-image
+    #   scipy
+    #   tifffile
+numpy==2.5.5 ; python_full_version >= '3.12'
+    # via
+    #   -r scripts/../requirements.txt
+    #   contourpy
+    #   imageio
+    #   matplotlib
+    #   opencv-python-headless
+    #   scikit-image
+    #   scipy
+    #   tifffile
+opencv-python-headless==5.1.0.95
+    # via -r scripts/../requirements.txt
+opentelemetry-api==1.45.2
+    # via
+    #   -r scripts/../requirements.txt
+    #   anthropic
+packaging==26.3
+    # via
+    #   -r scripts/../requirements.txt
+    #   lazy-loader
+    #   matplotlib
+    #   pytesseract
+    #   pytest
+    #   scikit-image
+    #   virtualenv
+pathspec==1.1.1
+    # via mypy
+pillow==12.3.0 ; python_full_version < '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   imageio
+    #   matplotlib
+    #   pytesseract
+    #   scikit-image
+pillow==13.0.0 ; python_full_version >= '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   imageio
+    #   matplotlib
+    #   pytesseract
+    #   scikit-image
+platformdirs==4.12.4 ; python_full_version < '3.11'
+    # via virtualenv
+platformdirs==4.14.8 ; python_full_version >= '3.11'
+    # via virtualenv
+pluggy==1.7.0
+    # via
+    #   pytest
+    #   pytest-cov
+pre-commit==4.6.2 ; python_full_version < '3.11'
+    # via -r scripts/requirements-dev.in
+pre-commit==4.7.0 ; python_full_version >= '3.11'
+    # via -r scripts/requirements-dev.in
+pydantic==2.14.4
+    # via
+    #   -r scripts/../requirements.txt
+    #   anthropic
+    #   typer
+pydantic-core==2.50.5
+    # via
+    #   -r scripts/../requirements.txt
+    #   pydantic
+pygments==2.21.0
+    # via
+    #   -r scripts/../requirements.txt
+    #   pytest
+    #   rich
+pyparsing==3.3.3
+    # via
+    #   -r scripts/../requirements.txt
+    #   matplotlib
+pyserial==3.5
+    # via -r scripts/../requirements.txt
+pytesseract==0.3.13
+    # via -r scripts/../requirements.txt
+pytest==9.2.0
+    # via
+    #   -r scripts/requirements-dev.in
+    #   pytest-cov
+pytest-cov==7.1.0
+    # via -r scripts/requirements-dev.in
+python-dateutil==3.0.0 ; python_full_version < '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   matplotlib
+python-dateutil==4.0.0 ; python_full_version >= '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   matplotlib
+python-discovery==1.9.7
+    # via virtualenv
+python-dotenv==1.2.4
+    # via -r scripts/../requirements.txt
+pyyaml==6.0.4
+    # via
+    #   -r scripts/../requirements.txt
+    #   pre-commit
+rich==15.0.0
+    # via
+    #   -r scripts/../requirements.txt
+    #   typer
+ruff==0.17.6
+    # via -r scripts/requirements-dev.in
+scikit-image==0.25.2 ; python_full_version < '3.11'
+    # via -r scripts/../requirements.txt
+scikit-image==0.26.0 ; python_full_version >= '3.11'
+    # via -r scripts/../requirements.txt
+scipy==1.15.3 ; python_full_version < '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   scikit-image
+scipy==1.17.1 ; python_full_version == '3.11.*'
+    # via
+    #   -r scripts/../requirements.txt
+    #   scikit-image
+scipy==1.18.1 ; python_full_version >= '3.12'
+    # via
+    #   -r scripts/../requirements.txt
+    #   scikit-image
+shellingham==1.5.4
+    # via
+    #   -r scripts/../requirements.txt
+    #   typer
+six==1.17.0 ; python_full_version < '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   python-dateutil
+sniffio==1.3.1
+    # via
+    #   -r scripts/../requirements.txt
+    #   anthropic
+tifffile==2025.5.10 ; python_full_version < '3.11'
+    # via
+    #   -r scripts/../requirements.txt
+    #   scikit-image
+tifffile==2026.3.3 ; python_full_version == '3.11.*'
+    # via
+    #   -r scripts/../requirements.txt
+    #   scikit-image
+tifffile==2026.11.16 ; python_full_version >= '3.12'
+    # via
+    #   -r scripts/../requirements.txt
+    #   scikit-image
+tomli==2.5.0 ; python_full_version < '3.11'
+    # via
+    #   coverage
+    #   mypy
+    #   pytest
+truststore==0.10.5 ; sys_platform != 'emscripten'
+    # via
+    #   -r scripts/../requirements.txt
+    #   httpcore2
+    #   httpx2
+typer==0.29.1 ; python_full_version < '3.11'
+    # via -r scripts/../requirements.txt
+typer==0.29.2 ; python_full_version >= '3.11'
+    # via -r scripts/../requirements.txt
+types-pyserial==3.5.0.20261122
+    # via -r scripts/requirements-dev.in
+types-pyyaml==6.0.12.20261122
+    # via -r scripts/requirements-dev.in
+typing-extensions==4.16.0
+    # via
+    #   -r scripts/../requirements.txt
+    #   anthropic
+    #   anyio
+    #   exceptiongroup
+    #   httpx2
+    #   mypy
+    #   opentelemetry-api
+    #   pydantic
+    #   pydantic-core
+    #   typing-inspection
+    #   virtualenv
+typing-inspection==0.4.5
+    # via
+    #   -r scripts/../requirements.txt
+    #   pydantic
+tzdata==2026.6
+    # via
+    #   -r scripts/../requirements.txt
+    #   python-dateutil
+virtualenv==21.15.13
+    # via pre-commit
